@@ -373,7 +373,7 @@ func TestRFC8949Appendix(t *testing.T) {
 				if v1 != 1 {
 					t.Errorf("got %d, want 1", v1)
 				}
-				r.ReadEndArray()
+				_ = r.ReadEndArray()
 				// [2, 3]
 				l2, _ := r.ReadStartArray()
 				if l2 != 2 {
@@ -387,7 +387,7 @@ func TestRFC8949Appendix(t *testing.T) {
 				if v3 != 3 {
 					t.Errorf("got %d, want 3", v3)
 				}
-				r.ReadEndArray()
+				_ = r.ReadEndArray()
 				// [4, 5]
 				l3, _ := r.ReadStartArray()
 				if l3 != 2 {
@@ -401,8 +401,8 @@ func TestRFC8949Appendix(t *testing.T) {
 				if v5 != 5 {
 					t.Errorf("got %d, want 5", v5)
 				}
-				r.ReadEndArray()
-				r.ReadEndArray()
+				_ = r.ReadEndArray()
+				_ = r.ReadEndArray()
 			},
 		},
 		{
@@ -444,7 +444,7 @@ func TestRFC8949Appendix(t *testing.T) {
 				if k2 != 3 || v2 != 4 {
 					t.Errorf("got %d: %d, want 3: 4", k2, v2)
 				}
-				r.ReadEndMap()
+				_ = r.ReadEndMap()
 			},
 		},
 		{
@@ -477,8 +477,8 @@ func TestRFC8949Appendix(t *testing.T) {
 				if av1 != 2 || av2 != 3 {
 					t.Errorf("got [%d, %d], want [2, 3]", av1, av2)
 				}
-				r.ReadEndArray()
-				r.ReadEndMap()
+				_ = r.ReadEndArray()
+				_ = r.ReadEndMap()
 			},
 		},
 		{
@@ -748,19 +748,19 @@ func TestRFC8949Appendix(t *testing.T) {
 				if arrLen != 2 {
 					t.Errorf("got array length %d, want 2", arrLen)
 				}
-				r.ReadInt64()
-				r.ReadInt64()
-				r.ReadEndArray()
+				_, _ = r.ReadInt64()
+				_, _ = r.ReadInt64()
+				_ = r.ReadEndArray()
 				// Read indefinite [4, 5]
 				arrLen2, _ := r.ReadStartArray()
 				if arrLen2 != -1 {
 					t.Errorf("got array length %d, want -1", arrLen2)
 				}
-				r.ReadInt64()
-				r.ReadInt64()
-				r.ReadEndArray()
+				_, _ = r.ReadInt64()
+				_, _ = r.ReadInt64()
+				_ = r.ReadEndArray()
 				// End outer array
-				r.ReadEndArray()
+				_ = r.ReadEndArray()
 			},
 		},
 		{
@@ -790,11 +790,11 @@ func TestRFC8949Appendix(t *testing.T) {
 				if arrLen != -1 {
 					t.Errorf("got array length %d, want -1", arrLen)
 				}
-				r.ReadInt64()
-				r.ReadInt64()
-				r.ReadEndArray()
+				_, _ = r.ReadInt64()
+				_, _ = r.ReadInt64()
+				_ = r.ReadEndArray()
 				// End map
-				r.ReadEndMap()
+				_ = r.ReadEndMap()
 			},
 		},
 	}

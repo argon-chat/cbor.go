@@ -135,25 +135,6 @@ func (w *CborWriter) advanceContainer() {
 	}
 }
 
-// writeInitialByte writes the initial byte for a data item.
-func (w *CborWriter) writeInitialByte(mt MajorType, value uint64) {
-	if value < 24 {
-		w.buffer = append(w.buffer, encodeInitialByte(mt, byte(value)))
-	} else if value <= math.MaxUint8 {
-		w.buffer = append(w.buffer, encodeInitialByte(mt, byte(AdditionalInfo8Bit)), byte(value))
-	} else if value <= math.MaxUint16 {
-		w.buffer = append(w.buffer, encodeInitialByte(mt, byte(AdditionalInfo16Bit)))
-		w.buffer = binary.BigEndian.AppendUint16(w.buffer, uint16(value))
-	} else if value <= math.MaxUint32 {
-		w.buffer = append(w.buffer, encodeInitialByte(mt, byte(AdditionalInfo32Bit)))
-		w.buffer = binary.BigEndian.AppendUint32(w.buffer, uint32(value))
-	} else {
-		w.buffer = append(w.buffer, encodeInitialByte(mt, byte(AdditionalInfo64Bit)))
-		w.buffer = binary.BigEndian.AppendUint64(w.buffer, value)
-	}
-	w.currentOffset = len(w.buffer)
-}
-
 // writeMinimalInitialByte writes the initial byte using minimal encoding (for canonical mode).
 func (w *CborWriter) writeMinimalInitialByte(mt MajorType, value uint64) {
 	if value < 24 {
