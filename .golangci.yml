@@ -1,5 +1,3 @@
-version: "2"
-
 run:
   timeout: 5m
   modules-download-mode: readonly
@@ -17,7 +15,7 @@ linters:
     - unparam
     - prealloc
 
-  settings:
+linters-settings:
     errcheck:
       check-type-assertions: true
       check-blank: true
